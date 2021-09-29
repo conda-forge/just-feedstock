@@ -1,5 +1,5 @@
 {% set name = "just" %}
-{% set version = "0.10.1" %}
+{% set version = "0.10.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/casey/just/archive/{{ version }}.tar.gz
-  sha256: e60e61d34fdaaa94aa9c4fa6fc4cd5ce07628758db989d15f97ce7b70d36fecd
+  sha256: 7be0c7f895191407c70affedc8640fcbc64b50cf72d4d301a1f2391e12478f14
 
 build:
   number: 0
@@ -26,10 +26,10 @@ test:
 about:
   home: https://github.com/casey/just
   license: CC0-1.0
-  license_file: 
+  license_file:
     - LICENSE
     - THIRDPARTY.yml
-  summary: 'just is a handy way to save and run project-specific commands.'
+  summary: just is a handy way to save and run project-specific commands.
 
 extra:
   recipe-maintainers:
