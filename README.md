@@ -1,11 +1,11 @@
-About just
-==========
+About just-feedstock
+====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/just-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/casey/just
 
 Package license: CC0-1.0
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/just-feedstock/blob/main/LICENSE.txt)
 
 Summary: just is a handy way to save and run project-specific commands.
 
