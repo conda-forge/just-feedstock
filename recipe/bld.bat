@@ -1,14 +1,20 @@
-:: check licenses
-cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+@echo on
+
+set CARGO_PROFILE_RELEASE_STRIP=symbols
+set CARGO_PROFILE_RELEASE_LTO=fat
 
 :: build
-cargo install --locked --root "%LIBRARY_PREFIX%" --path . || goto :error
+cargo install --locked ^
+    --root "%PREFIX%" ^
+    --path . ^
+    --no-track ^
+    || goto :error
 
-:: strip debug symbols
-strip "%LIBRARY_PREFIX%\bin\just.exe" || goto :error
-
-:: remove extra build file
-del /F /Q "%LIBRARY_PREFIX%\.crates.toml"
+:: dump licenses
+cargo-bundle-licenses ^
+    --format yaml ^
+    --output "%SRC_DIR%\THIRDPARTY.yml" ^
+    || goto :error
 
 goto :EOF
 
