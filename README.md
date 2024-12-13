@@ -200,6 +200,3 @@ Feedstock Maintainers
 * [@dbast](https://github.com/dbast/)
 * [@kellpossible](https://github.com/kellpossible/)
 
-
-<!-- dummy commit to enable rerendering -->
-
