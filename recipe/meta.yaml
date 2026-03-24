@@ -1,5 +1,5 @@
 {% set name = "just" %}
-{% set version = "1.47.1" %}
+{% set version = "1.48.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/casey/just/archive/{{ version }}.tar.gz
-  sha256: 2976e02f2dffd1ddc9cba57ef2fe75e8f4b97fde1657ee6fd145ab01efd789a7
+  sha256: fa7f1bae65b22745a6c329f3c49b9876aa159b4e04d7803d78660809fc8af7d1
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
