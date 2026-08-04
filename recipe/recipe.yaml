@@ -24,14 +24,13 @@ build:
         else:
           - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .
       - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
-      # the shipped completion scripts are thin dynamic-completion wrappers, so
-      # they can be copied instead of executing the (possibly cross-compiled) binary
       - if: unix
         then:
-          - mkdir -p $PREFIX/share/bash-completion/completions $PREFIX/share/zsh/site-functions $PREFIX/share/fish/vendor_completions.d
-          - cp completions/just.bash $PREFIX/share/bash-completion/completions/just
-          - cp completions/just.zsh $PREFIX/share/zsh/site-functions/_just
-          - cp completions/just.fish $PREFIX/share/fish/vendor_completions.d/just.fish
+          - mkdir -p $PREFIX/share/bash-completion/completions $PREFIX/share/zsh/site-functions $PREFIX/share/fish/vendor_completions.d $PREFIX/share/man/man1
+          - $PREFIX/bin/just --completions bash > $PREFIX/share/bash-completion/completions/just
+          - $PREFIX/bin/just --completions zsh > $PREFIX/share/zsh/site-functions/_just
+          - $PREFIX/bin/just --completions fish > $PREFIX/share/fish/vendor_completions.d/just.fish
+          - $PREFIX/bin/just --man > $PREFIX/share/man/man1/just.1
 
 requirements:
   build:
@@ -52,6 +51,7 @@ tests:
             - share/bash-completion/completions/just
             - share/zsh/site-functions/_just
             - share/fish/vendor_completions.d/just.fish
+            - share/man/man1/just.1
       strict: true
 
 about:
