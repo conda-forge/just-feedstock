@@ -1,7 +1,13 @@
 bot: {automerge: true}
-build_platform: {osx_arm64: osx_64}
+build_platform:
+  linux_ppc64le: linux_64
+  win_arm64: win_64
 conda_build: {pkg_format: '2'}
 conda_forge_output_validation: true
 github: {branch_name: main, tooling_branch_name: main}
-provider: {linux_aarch64: azure, linux_ppc64le: azure, win: azure}
+provider:
+  linux_aarch64: default
+  osx_arm64: default
 test: native_and_emulated
+conda_install_tool: pixi
+conda_build_tool: rattler-build

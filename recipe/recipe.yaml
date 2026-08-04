@@ -1,0 +1,74 @@
+schema_version: 1
+
+context:
+  version: "1.58.0"
+
+package:
+  name: just
+  version: ${{ version }}
+
+source:
+  url: https://github.com/casey/just/archive/${{ version }}.tar.gz
+  sha256: c8a36e6e9397f2fdfcb0cc246fcdb790b52a784f3c8cabc0d8baeb031852a148
+
+build:
+  number: 1
+  script:
+    env:
+      CARGO_PROFILE_RELEASE_STRIP: symbols
+      CARGO_PROFILE_RELEASE_LTO: fat
+    content:
+      - if: unix
+        then:
+          - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path .
+        else:
+          - cargo auditable install --locked --no-track --bins --root %LIBRARY_PREFIX% --path .
+      - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
+      - if: unix
+        then:
+          - mkdir -p $PREFIX/share/bash-completion/completions $PREFIX/share/zsh/site-functions $PREFIX/share/fish/vendor_completions.d $PREFIX/share/man/man1
+          - $PREFIX/bin/just --completions bash > $PREFIX/share/bash-completion/completions/just
+          - $PREFIX/bin/just --completions zsh > $PREFIX/share/zsh/site-functions/_just
+          - $PREFIX/bin/just --completions fish > $PREFIX/share/fish/vendor_completions.d/just.fish
+          - $PREFIX/bin/just --man > $PREFIX/share/man/man1/just.1
+
+requirements:
+  build:
+    - ${{ stdlib("c") }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('rust') }}
+    - cargo-bundle-licenses
+    - cargo-auditable
+
+tests:
+  - script: just --help
+  - package_contents:
+      bin:
+        - just
+      files:
+        - if: unix
+          then:
+            - share/bash-completion/completions/just
+            - share/zsh/site-functions/_just
+            - share/fish/vendor_completions.d/just.fish
+            - share/man/man1/just.1
+      strict: true
+
+about:
+  homepage: https://github.com/casey/just
+  summary: just is a handy way to save and run project-specific commands.
+  description: |
+    just is a handy way to save and run project-specific commands.
+
+    Commands, called recipes, are stored in a file called justfile with syntax
+    inspired by make.
+  license: CC0-1.0
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
+  documentation: https://just.systems/man/en/
+  repository: https://github.com/casey/just
+
+extra:
+  recipe-maintainers:
+    - dbast
